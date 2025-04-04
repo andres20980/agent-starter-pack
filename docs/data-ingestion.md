@@ -1,71 +1,71 @@
-# Data Ingestion Pipeline for RAG
+# Pipeline de Ingesta de Datos para RAG
 
-The Agent Starter Pack simplifies incorporating data ingestion into your agent projects. This is especially useful for agents requiring document processing and retrieval, such as Retrieval Augmented Generation (RAG) applications.
+El Agent Starter Pack simplifica la incorporación de la ingesta de datos en tus proyectos de agentes. Esto es especialmente útil para agentes que requieren procesamiento y recuperación de documentos, como las aplicaciones de Generación Aumentada por Recuperación (RAG).
 
-## Overview
+## Descripción General
 
-Data ingestion automates:
+La ingesta de datos automatiza:
 
--   Loading data from various sources.
--   Processing and chunking documents.
--   Generating embeddings with Vertex AI.
--   Storing processed data and embeddings in **Vertex AI Search** or **Vertex AI Vector Search**.
--   Scheduling periodic data updates.
+-   Cargar datos desde diversas fuentes.
+-   Procesar y dividir documentos en fragmentos.
+-   Generar embeddings con Vertex AI.
+-   Almacenar datos procesados y embeddings en **Vertex AI Search** o **Vertex AI Vector Search**.
+-   Programar actualizaciones periódicas de datos.
 
-## When to Include Data Ingestion
+## Cuándo Incluir la Ingesta de Datos
 
-Consider data ingestion if:
+Considera la ingesta de datos si:
 
--   Your agent needs to search or reference extensive documentation.
--   You're developing a RAG-based application.
--   Your agent's knowledge base requires periodic updates.
--   You want to keep your agent's content fresh and searchable.
+-   Tu agente necesita buscar o referenciar documentación extensa.
+-   Estás desarrollando una aplicación basada en RAG.
+-   La base de conocimiento de tu agente requiere actualizaciones periódicas.
+-   Quieres mantener el contenido de tu agente actualizado y accesible.
 
-## Usage
+## Uso
 
-### Project Creation
+### Creación de Proyectos
 
-Include data ingestion during project creation in two ways:
+Incluye la ingesta de datos durante la creación del proyecto de dos maneras:
 
-1.  **Automatic Inclusion**: Some agents (e.g., those designed for RAG like `agentic_rag`) automatically include it due to their nature. You will be prompted to select a datastore (`vertex_ai_search` or `vertex_ai_vector_search`) if not specified.
+1.  **Inclusión Automática**: Algunos agentes (por ejemplo, los diseñados para RAG como `agentic_rag`) la incluyen automáticamente debido a su naturaleza. Se te pedirá que selecciones un almacén de datos (`vertex_ai_search` o `vertex_ai_vector_search`) si no se especifica.
 
-2.  **Optional Inclusion**: For other agents, add it using the `--include-data-ingestion` flag and specify the desired datastore with `--datastore` (or `-ds`):
+2.  **Inclusión Opcional**: Para otros agentes, añádela usando la bandera `--include-data-ingestion` y especifica el almacén de datos deseado con `--datastore` (o `-ds`):
 
     ```bash
-    # Using Vertex AI Search
+    # Usando Vertex AI Search
     agent-starter-pack create my-agent-project --include-data-ingestion -ds vertex_ai_search
 
-    # Using Vertex AI Vector Search
+    # Usando Vertex AI Vector Search
     agent-starter-pack create my-agent-project --include-data-ingestion -ds vertex_ai_vector_search
     ```
-    If `--datastore` is omitted when `--include-data-ingestion` is used, you will be prompted to choose one.
+    Si se omite `--datastore` al usar `--include-data-ingestion`, se te pedirá que elijas uno.
 
-### Infrastructure Setup
+### Configuración de Infraestructura
 
-The Terraform IaC configures the necessary infrastructure based on your chosen datastore:
+El IaC de Terraform configura la infraestructura necesaria según el almacén de datos elegido:
 
--   **Vertex AI Search**: Datastores.
--   **Vertex AI Vector Search**: Indexes, Index Endpoints, and Buckets for staging data.
--   Necessary service accounts and permissions.
--   Storage buckets for pipeline artifacts.
--   BigQuery datasets (if applicable).
+-   **Vertex AI Search**: Almacenes de datos.
+-   **Vertex AI Vector Search**: Índices, Endpoints de Índices y Buckets para datos en preparación.
+-   Cuentas de servicio y permisos necesarios.
+-   Buckets de almacenamiento para artefactos del pipeline.
+-   Conjuntos de datos de BigQuery (si aplica).
 
-## Getting Started
+## Primeros Pasos
 
-1.  Create your project with data ingestion, specifying your datastore:
+1.  Crea tu proyecto con ingesta de datos, especificando tu almacén de datos:
 
     ```bash
-    # Example with Vertex AI Search
+    # Ejemplo con Vertex AI Search
     agent-starter-pack create my-project -ds vertex_ai_search
 
-    # Example with Vertex AI Vector Search
+    # Ejemplo con Vertex AI Vector Search
     agent-starter-pack create my-project -ds vertex_ai_vector_search
     ```
 
-2.  Follow the setup instructions in the generated `data_ingestion/README.md`. Deploy the Terraform infrastructure (at least in your development project) before running the data pipeline.
+2.  Sigue las instrucciones de configuración en el archivo `data_ingestion/README.md` generado. Despliega la infraestructura de Terraform (al menos en tu proyecto de desarrollo) antes de ejecutar el pipeline de datos.
 
-## Learn More
+## Más Información
 
--   [Vertex AI Pipelines](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) for pipeline management.
--   [Vertex AI Search documentation](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction) for search capabilities.
--   [Vertex AI Vector Search documentation](https://cloud.google.com/vertex-ai/docs/vector-search/overview) for vector database capabilities.
+-   [Pipelines de Vertex AI](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) para la gestión de pipelines.
+-   [Documentación de Vertex AI Search](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction) para capacidades de búsqueda.
+-   [Documentación de Vertex AI Vector Search](https://cloud.google.com/vertex-ai/docs/vector-search/overview) para capacidades de bases de datos vectoriales.

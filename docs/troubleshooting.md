@@ -1,97 +1,97 @@
-# Troubleshooting
+# Solución de Problemas
 
-This guide helps resolve common issues with the Agent Starter Pack.
+Esta guía ayuda a resolver problemas comunes con el Agent Starter Pack.
 
-## Authentication Issues
+## Problemas de Autenticación
 
-For detailed information on authentication with Vertex AI, visit the [official documentation](https://cloud.google.com/vertex-ai/docs/authentication).
+Para información detallada sobre la autenticación con Vertex AI, visita la [documentación oficial](https://cloud.google.com/vertex-ai/docs/authentication).
 
-### "Could not find credentials" or "Could not find project" Error
+### Error "No se pudieron encontrar credenciales" o "No se pudo encontrar el proyecto"
 
-**Problem**: Missing credentials error with Vertex AI.
+**Problema**: Error de credenciales faltantes con Vertex AI.
 
-**Solution**:
+**Solución**:
 
-1.  Log in to Google Cloud: `gcloud auth login --update-adc`
-2.  Set the correct project:
+1. Inicia sesión en Google Cloud: `gcloud auth login --update-adc`
+2. Configura el proyecto correcto:
     ```bash
     gcloud config set project YOUR_PROJECT_ID
     gcloud auth application-default set-quota-project YOUR_PROJECT_ID
     ```
 
-### Vertex AI API Not Enabled
+### API de Vertex AI No Habilitada
 
-**Problem**: Operations fail because the Vertex AI API is not enabled in your project.
+**Problema**: Las operaciones fallan porque la API de Vertex AI no está habilitada en tu proyecto.
 
-**Solution**:
+**Solución**:
 
-1. Enable the Vertex AI API:
+1. Habilita la API de Vertex AI:
    ```bash
    gcloud services enable aiplatform.googleapis.com
    ```
 
-2. Verify the API is enabled:
+2. Verifica que la API esté habilitada:
    ```bash
    gcloud services list --filter=aiplatform.googleapis.com
    ```
 
-### Permission Denied Errors
-**Problem**: "Permission denied" errors with Google Cloud APIs.
+### Errores de Permiso Denegado
+**Problema**: Errores de "Permiso denegado" con las APIs de Google Cloud.
 
-**Solution**: Ensure your user or service account has the necessary IAM roles.  For example, for Vertex AI, you often need `roles/aiplatform.user`.  Grant roles using the `gcloud projects add-iam-policy-binding` command or the Cloud Console.
+**Solución**: Asegúrate de que tu usuario o cuenta de servicio tenga los roles necesarios de IAM. Por ejemplo, para Vertex AI, a menudo necesitas `roles/aiplatform.user`. Otorga roles usando el comando `gcloud projects add-iam-policy-binding` o la Consola de Cloud.
 
-### Command Not Found: agent-starter-pack
+### Comando No Encontrado: agent-starter-pack
 
-**Problem**: "Command not found" error after installation.
+**Problema**: Error de "Comando no encontrado" después de la instalación.
 
-**Solution**:
+**Solución**:
 
-1. Verify installation:
+1. Verifica la instalación:
    ```bash
    pip list | grep agent-starter-pack
    ```
-2. Check PATH:
+2. Revisa el PATH:
    ```bash
    echo $PATH
    ```
-3. Reinstall if needed:
+3. Reinstala si es necesario:
    ```bash
    pip install --user agent-starter-pack
    ```
-4. For pipx:
+4. Para pipx:
    ```bash
    pipx ensurepath
-   source ~/.bashrc  # or ~/.zshrc
+   source ~/.bashrc  # o ~/.zshrc
    ```
 
-## Project Creation Issues
+## Problemas de Creación de Proyectos
 
-### Project Creation Fails
+### Fallos en la Creación de Proyectos
 
-**Problem**: `agent-starter-pack create` fails.
+**Problema**: `agent-starter-pack create` falla.
 
-**Solution**:
+**Solución**:
 
-1.  **Check Error Messages:** Examine output for clues.
-2.  **Write Permissions:** Ensure write access to the directory.
-3.  **Project Name:** Use lowercase letters, numbers and hyphens only.
-4.  **Debug Mode:** Consider using debug mode to get more detailed error information:
+1. **Revisa los Mensajes de Error:** Examina la salida para obtener pistas.
+2. **Permisos de Escritura:** Asegúrate de tener acceso de escritura al directorio.
+3. **Nombre del Proyecto:** Usa solo letras minúsculas, números y guiones.
+4. **Modo Depuración:** Considera usar el modo de depuración para obtener información más detallada sobre el error:
     ```bash
     agent-starter-pack create my-project-name --debug
     ```
 
-### Issues with Agent Engine
+### Problemas con el Motor del Agente
 
-Consider leveraging the [public product documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/troubleshooting/set-up)
+Considera aprovechar la [documentación pública del producto](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/troubleshooting/set-up).
 
-## Getting More Help
+## Obtener Más Ayuda
 
-If issues persist:
+Si los problemas persisten:
 
-1.  **Check GitHub Issues:** Search for existing Github issues in the `agent-starter-pack` Github repository.
-2.  **File a New Issue:** Provide:
+1. **Revisa los Issues de GitHub:** Busca problemas existentes en el repositorio de `agent-starter-pack` en GitHub.
+2. **Crea un Nuevo Issue:** Proporciona:
 
-    *   Problem description.
-    *   Steps to reproduce.
-    *   Error messages (preferably run with `--debug` flag for detailed logs).
-    *   Environment: OS, Python version, `agent-starter-pack` version, installation method, shell.
+    * Descripción del problema.
+    * Pasos para reproducirlo.
+    * Mensajes de error (preferiblemente ejecuta con el flag `--debug` para obtener registros detallados).
+    * Entorno: SO, versión de Python, versión de `agent-starter-pack`, método de instalación, shell.

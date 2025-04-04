@@ -1,29 +1,29 @@
-# Deployment
+# Despliegue
 
-The templated agent leverages [**Terraform**](http://terraform.io) to define and provision the underlying infrastructure, while [**Cloud Build**](https://cloud.google.com/build/) orchestrates the continuous integration and continuous deployment (CI/CD) pipeline.
+El agente templado utiliza [**Terraform**](http://terraform.io) para definir y aprovisionar la infraestructura subyacente, mientras que [**Cloud Build**](https://cloud.google.com/build/) orquesta la integración continua y el despliegue continuo (CI/CD).
 
-## Deployment Workflow
+## Flujo de Trabajo de Despliegue
 
-![Deployment Workflow](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/deployment_workflow.png)
+![Flujo de Trabajo de Despliegue](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/deployment_workflow.png)
 
-**Description:**
+**Descripción:**
 
-1. CI Pipeline (`deployment/ci/pr_checks.yaml`):
+1. Pipeline de CI (`deployment/ci/pr_checks.yaml`):
 
-   - Triggered on pull request creation/update
-   - Runs unit and integration tests
+   - Se activa al crear/actualizar un pull request.
+   - Ejecuta pruebas unitarias e integrales.
 
-2. CD Pipeline (`deployment/cd/staging.yaml`):
+2. Pipeline de CD (`deployment/cd/staging.yaml`):
 
-   - Triggered on merge to `main` branch
-   - Builds and pushes application to Artifact Registry
-   - Deploys to staging environment
-   - Performs load testing
+   - Se activa al hacer merge en la rama `main`.
+   - Construye y sube la aplicación al Registro de Artefactos.
+   - Despliega en el entorno de staging.
+   - Realiza pruebas de carga.
 
-3. Production Deployment (`deployment/cd/deploy-to-prod.yaml`):
-   - Triggered after successful staging deployment
-   - Requires manual approval
-   - Deploys to production environment
+3. Despliegue en Producción (`deployment/cd/deploy-to-prod.yaml`):
+   - Se activa después de un despliegue exitoso en staging.
+   - Requiere aprobación manual.
+   - Despliega en el entorno de producción.
 
 ## Setup
 

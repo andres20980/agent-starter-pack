@@ -3,69 +3,69 @@
 {%- elif cookiecutter.datastore_type == "vertex_ai_vector_search" -%}
 {%- set datastore_service_name = "Vertex AI Vector Search" -%}
 {%- else -%}
-{%- set datastore_service_name = "Your Configured Datastore" -%}
+{%- set datastore_service_name = "Tu Almacén de Datos Configurado" -%}
 {%- endif -%}
 
-# Data Ingestion Pipeline
+# Pipeline de Ingesta de Datos
 
-This pipeline automates the ingestion of data into {{ datastore_service_name }}, streamlining the process of building Retrieval Augmented Generation (RAG) applications.
+Este pipeline automatiza la ingesta de datos en {{ datastore_service_name }}, simplificando el proceso de construcción de aplicaciones de Recuperación Aumentada por Generación (RAG).
 
-It orchestrates the complete workflow: loading data, chunking it into manageable segments, generating embeddings using Vertex AI Embeddings, and importing the processed data into your {{ datastore_service_name }} datastore.
+Orquesta el flujo de trabajo completo: carga de datos, división en segmentos manejables, generación de embeddings utilizando Vertex AI Embeddings e importación de los datos procesados en tu almacén de datos {{ datastore_service_name }}.
 
-You can trigger the pipeline for an initial data load or schedule it to run periodically, ensuring your search index remains current. Vertex AI Pipelines provides the orchestration and monitoring capabilities for this process.
+Puedes activar el pipeline para una carga inicial de datos o programarlo para que se ejecute periódicamente, asegurando que tu índice de búsqueda se mantenga actualizado. Vertex AI Pipelines proporciona las capacidades de orquestación y monitoreo para este proceso.
 
-## Prerequisites
+## Requisitos Previos
 
-Before running any commands, ensure you have set your Google Cloud Project ID as an environment variable. This variable will be used by the subsequent `make` commands.
+Antes de ejecutar cualquier comando, asegúrate de haber configurado tu ID de Proyecto de Google Cloud como una variable de entorno. Esta variable será utilizada por los comandos `make` posteriores.
 
 ```bash
-export PROJECT_ID="YOUR_PROJECT_ID"
+export PROJECT_ID="TU_ID_DE_PROYECTO"
 ```
-Replace `"YOUR_PROJECT_ID"` with your actual Google Cloud Project ID.
+Reemplaza `"TU_ID_DE_PROYECTO"` con tu ID de Proyecto de Google Cloud real.
 
-Now, you can set up the development environment:
+Ahora, puedes configurar el entorno de desarrollo:
 
-1.  **Set up Dev Environment:** Use the following command from the root of the repository to provision the necessary resources in your development environment using Terraform. This includes deploying a datastore and configuring the required permissions.
+1.  **Configurar el Entorno de Desarrollo:** Usa el siguiente comando desde la raíz del repositorio para aprovisionar los recursos necesarios en tu entorno de desarrollo utilizando Terraform. Esto incluye desplegar un almacén de datos y configurar los permisos requeridos.
 
     ```bash
     make setup-dev-env
     ```
-    This command requires `terraform` to be installed and configured.
+    Este comando requiere que `terraform` esté instalado y configurado.
 
-## Running the Data Ingestion Pipeline
+## Ejecución del Pipeline de Ingesta de Datos
 
-After setting up the infrastructure using `make setup-dev-env`, you can run the data ingestion pipeline.
+Después de configurar la infraestructura utilizando `make setup-dev-env`, puedes ejecutar el pipeline de ingesta de datos.
 
-> **Note:** The initial pipeline execution might take longer as your project is configured for Vertex AI Pipelines.
+> **Nota:** La ejecución inicial del pipeline puede tardar más tiempo mientras tu proyecto se configura para Vertex AI Pipelines.
 
-**Steps:**
+**Pasos:**
 
-**a. Execute the Pipeline:**
-Run the following command from the root of the repository. Ensure the `PROJECT_ID` environment variable is still set in your current shell session (as configured in Prerequisites).
+**a. Ejecutar el Pipeline:**
+Ejecuta el siguiente comando desde la raíz del repositorio. Asegúrate de que la variable de entorno `PROJECT_ID` siga configurada en tu sesión actual de shell (como se indicó en los Requisitos Previos).
 
 ```bash
 make data-ingestion
 ```
 
-This command handles installing dependencies (if needed via `make install`) and submits the pipeline job using the configuration derived from your project setup. The specific parameters passed to the underlying script depend on the `datastore_type` selected during project generation:
+Este comando se encarga de instalar las dependencias (si es necesario, a través de `make install`) y de enviar el trabajo del pipeline utilizando la configuración derivada de tu proyecto. Los parámetros específicos que se pasan al script subyacente dependen del `datastore_type` seleccionado durante la generación del proyecto:
 {%- if cookiecutter.datastore_type == "vertex_ai_search" %}
-*   It will use parameters like `--data-store-id`, `--data-store-region`.
+*   Utilizará parámetros como `--data-store-id`, `--data-store-region`.
 {%- elif cookiecutter.datastore_type == "vertex_ai_vector_search" %}
-*   It will use parameters like `--vector-search-index`, `--vector-search-index-endpoint`, `--vector-search-data-bucket-name`.
+*   Utilizará parámetros como `--vector-search-index`, `--vector-search-index-endpoint`, `--vector-search-data-bucket-name`.
 {%- endif %}
-*   Common parameters include `--project-id`, `--region`, `--service-account`, `--pipeline-root`, and `--pipeline-name`.
+*   Los parámetros comunes incluyen `--project-id`, `--region`, `--service-account`, `--pipeline-root` y `--pipeline-name`.
 
-**b. Pipeline Scheduling:**
+**b. Programación del Pipeline:**
 
-The `make data-ingestion` command triggers an immediate pipeline run. For production environments, the underlying `submit_pipeline.py` script also supports scheduling options with flags like `--schedule-only` and `--cron-schedule` for periodic execution.
+El comando `make data-ingestion` activa una ejecución inmediata del pipeline. Para entornos de producción, el script subyacente `submit_pipeline.py` también admite opciones de programación con flags como `--schedule-only` y `--cron-schedule` para ejecuciones periódicas.
 
-**c. Monitoring Pipeline Progress:**
+**c. Monitoreo del Progreso del Pipeline:**
 
-The pipeline's configuration and execution status link will be printed to the console upon submission. For detailed monitoring, use the Vertex AI Pipelines dashboard in the Google Cloud Console.
+La configuración del pipeline y el enlace al estado de ejecución se imprimirán en la consola tras el envío. Para un monitoreo detallado, utiliza el panel de Vertex AI Pipelines en la Consola de Google Cloud.
 
-## Testing Your RAG Application
+## Prueba de Tu Aplicación RAG
 
-Once the data ingestion pipeline completes successfully, you can test your RAG application with {{ datastore_service_name }}.
+Una vez que el pipeline de ingesta de datos se complete con éxito, puedes probar tu aplicación RAG con {{ datastore_service_name }}.
 {%- if cookiecutter.datastore_type == "vertex_ai_search" %}
-> **Troubleshooting:** If you encounter the error `"google.api_core.exceptions.InvalidArgument: 400 The embedding field path: embedding not found in schema"` after the initial data ingestion, wait a few minutes and try again. This delay allows Vertex AI Search to fully index the ingested data.
+> **Resolución de Problemas:** Si encuentras el error `"google.api_core.exceptions.InvalidArgument: 400 The embedding field path: embedding not found in schema"` después de la ingesta inicial de datos, espera unos minutos e inténtalo de nuevo. Este retraso permite que Vertex AI Search indexe completamente los datos ingeridos.
 {%- endif %}

@@ -1,22 +1,22 @@
-# Agentic RAG
+# RAG Agente
 
-This agent enhances the Agent Starter Pack with a production-ready data ingestion pipeline, enriching your Retrieval Augmented Generation (RAG) applications. You will be able to ingest, process, and embed custom data, improving the relevance and context of your generated responses. You can choose between different datastore options including Vertex AI Search and Vertex AI Vector Search depending on your specific needs.
+Este agente mejora el Agent Starter Pack con un pipeline de ingestión de datos listo para producción, enriqueciendo tus aplicaciones de Generación Aumentada por Recuperación (RAG). Podrás ingerir, procesar e incrustar datos personalizados, mejorando la relevancia y el contexto de tus respuestas generadas. Puedes elegir entre diferentes opciones de almacenamiento de datos, incluyendo Vertex AI Search y Vertex AI Vector Search, dependiendo de tus necesidades específicas.
 
-The agent provides the infrastructure to create a Vertex AI Pipeline with your custom code. Because it's built on Vertex AI Pipelines, you benefit from features like scheduled runs, recurring executions, and on-demand triggers. For processing terabyte-scale data, we recommend combining Vertex AI Pipelines with data analytics tools like BigQuery or Dataflow.
+El agente proporciona la infraestructura para crear un Pipeline de Vertex AI con tu código personalizado. Al estar construido sobre Vertex AI Pipelines, te beneficias de características como ejecuciones programadas, ejecuciones recurrentes y activaciones bajo demanda. Para procesar datos a escala de terabytes, recomendamos combinar Vertex AI Pipelines con herramientas de análisis de datos como BigQuery o Dataflow.
 
-![search agent demo](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/starter-pack-search-pattern.gif)
+![demostración del agente de búsqueda](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/starter-pack-search-pattern.gif)
 
-## Architecture
+## Arquitectura
 
-The agent implements the following architecture:
+El agente implementa la siguiente arquitectura:
 
-![architecture diagram](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/agentic_rag_vertex_ai_search_architecture.png)
+![diagrama de arquitectura](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/agentic_rag_vertex_ai_search_architecture.png)
 
-### Key Features
+### Características Clave
 
-- **Flexible Datastore Options:** Choose between Vertex AI Search or Vertex AI Vector Search for efficient data storage and retrieval based on your specific needs.
-- **Automated Data Ingestion Pipeline:** Automates the process of ingesting data from input sources.
-- **Custom Embeddings:** Generates embeddings using Vertex AI Embeddings and incorporates them into your data for enhanced semantic search.
-- **Terraform Deployment:** Ingestion pipeline is instantiated with Terraform alongside the rest of the infrastructure of the starter pack.
-- **Cloud Build Integration:** Deployment of ingestion pipelines is added to the CD pipelines of the starter pack.
-- **Customizable Code:** Easily adapt and customize the code to fit your specific application needs and data sources.
+- **Opciones Flexibles de Almacenamiento de Datos:** Elige entre Vertex AI Search o Vertex AI Vector Search para un almacenamiento y recuperación de datos eficiente según tus necesidades específicas.
+- **Pipeline Automatizado de Ingestión de Datos:** Automatiza el proceso de ingestión de datos desde fuentes de entrada.
+- **Incrustaciones Personalizadas:** Genera incrustaciones utilizando Vertex AI Embeddings e incorpóralas a tus datos para una búsqueda semántica mejorada.
+- **Despliegue con Terraform:** El pipeline de ingestión se instancia con Terraform junto con el resto de la infraestructura del paquete inicial.
+- **Integración con Cloud Build:** El despliegue de pipelines de ingestión se añade a los pipelines de CD del paquete inicial.
+- **Código Personalizable:** Adapta y personaliza fácilmente el código para ajustarlo a las necesidades específicas de tu aplicación y fuentes de datos.

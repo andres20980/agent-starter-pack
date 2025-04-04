@@ -1,9 +1,9 @@
-# LangGraph Base React Agent
+# Agente Reactivo Base LangGraph
 
-A minimal example demonstrating how to build a reactive agent using LangGraph. This agent serves as an excellent starting point for developers looking to implement LangGraph-based solutions.
+Un ejemplo mínimo que demuestra cómo construir un agente reactivo utilizando LangGraph. Este agente sirve como un excelente punto de partida para desarrolladores que buscan implementar soluciones basadas en LangGraph.
 
-## Key Features
+## Características clave
 
-- **Simple Architecture**: Shows the basic building blocks of a LangGraph agent
-- **Streaming Support**: Includes streaming response capability using Vertex AI
-- **Sample Tool Integration**: Includes a basic search tool to demonstrate tool usage
+- **Arquitectura simple**: Muestra los bloques de construcción básicos de un agente LangGraph.
+- **Soporte de streaming**: Incluye capacidad de respuesta en streaming utilizando Vertex AI.
+- **Integración de herramientas de ejemplo**: Incluye una herramienta de búsqueda básica para demostrar el uso de herramientas.

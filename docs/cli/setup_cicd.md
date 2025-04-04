@@ -1,93 +1,93 @@
 # `setup-cicd`
 
-The `setup-cicd` command is a powerful utility provided by `agent-starter-pack` that automates the deployment of your complete Terraform infrastructure and configures your Google Cloud projects in a single operation.
+El comando `setup-cicd` es una potente utilidad proporcionada por `agent-starter-pack` que automatiza el despliegue de toda tu infraestructura de Terraform y configura tus proyectos de Google Cloud en una sola operación.
 
-**⚡️ Quick Start Example:**
+**⚡️ Ejemplo Rápido:**
 
-The command is now even simpler to get started with. You can run it without any arguments, and it will prompt you for the required project IDs:
+El comando ahora es aún más sencillo de usar. Puedes ejecutarlo sin argumentos, y te pedirá los IDs de los proyectos necesarios:
 
 ```bash
 agent-starter-pack setup-cicd
 ```
-*(You will be prompted for Staging and Production project IDs)*
+*(Se te pedirá que introduzcas los IDs de los proyectos de Staging y Producción)*
 
-Alternatively, you can provide the project IDs directly as flags:
+Alternativamente, puedes proporcionar los IDs de los proyectos directamente como flags:
 
 ```bash
 agent-starter-pack setup-cicd \
-  --staging-project=your-staging-project-id \
-  --prod-project=your-prod-project-id
+  --staging-project=tu-id-proyecto-staging \
+  --prod-project=tu-id-proyecto-produccion
 ```
 
-**⚠️ Important Considerations:**
+**⚠️ Consideraciones Importantes:**
 
-*   **Experimental:** This command is under active development. Use it with caution and report any issues.
-*   **Production Use:** For production environments, we **strongly recommend** following the detailed instructions in `deployment/README.md`. Manual setup offers greater control over security and configuration. This automated command is best suited for development and testing.
-*   **GitHub Only:** Currently, only GitHub is supported as a Git provider.
+*   **Experimental:** Este comando está en desarrollo activo. Úsalo con precaución y reporta cualquier problema.
+*   **Uso en Producción:** Para entornos de producción, **recomendamos encarecidamente** seguir las instrucciones detalladas en `deployment/README.md`. La configuración manual ofrece mayor control sobre la seguridad y la configuración. Este comando automatizado es más adecuado para desarrollo y pruebas.
+*   **Solo GitHub:** Actualmente, solo se admite GitHub como proveedor de Git.
 
-### Prerequisites
+### Requisitos Previos
 
-1.  **Run from Project Root:** Execute the command from the root directory of your `agent-starter-pack` project (where `pyproject.toml` is located).
-2.  **Install Tools:**
+1.  **Ejecutar desde la Raíz del Proyecto:** Ejecuta el comando desde el directorio raíz de tu proyecto `agent-starter-pack` (donde se encuentra `pyproject.toml`).
+2.  **Instalar Herramientas:**
     *   Terraform
-    *   `gh` CLI (GitHub CLI): Install and authenticate using `gh auth login`.
-    *   `gcloud` CLI (Google Cloud SDK): Authenticate using `gcloud auth application-default login`.
-3.  **Google Cloud Projects:** You need at least two Google Cloud projects: one for staging and one for production. The command will prompt you for their IDs if you don't provide the `--staging-project` and `--prod-project` flags. You also need a project to host the CI/CD resources (Cloud Build, Artifact Registry, Terraform state). You can specify this using `--cicd-project`. If omitted, the production project will be used for CI/CD resources.
-4.  **Permissions:** The user or service account running this command must have the `Owner` role on the specified Google Cloud projects (staging, production, CI/CD if specified, development if specified). This is necessary for creating resources and assigning IAM roles.
+    *   CLI de `gh` (GitHub CLI): Instálalo y autentícate usando `gh auth login`.
+    *   CLI de `gcloud` (Google Cloud SDK): Autentícate usando `gcloud auth application-default login`.
+3.  **Proyectos de Google Cloud:** Necesitas al menos dos proyectos de Google Cloud: uno para staging y otro para producción. El comando te pedirá sus IDs si no proporcionas los flags `--staging-project` y `--prod-project`. También necesitas un proyecto para alojar los recursos de CI/CD (Cloud Build, Artifact Registry, estado de Terraform). Puedes especificarlo usando `--cicd-project`. Si se omite, se usará el proyecto de producción para los recursos de CI/CD.
+4.  **Permisos:** El usuario o cuenta de servicio que ejecute este comando debe tener el rol de `Propietario` en los proyectos de Google Cloud especificados (staging, producción, CI/CD si se especifica, desarrollo si se especifica). Esto es necesario para crear recursos y asignar roles de IAM.
 
-### How it Works
+### Cómo Funciona
 
-The `setup-cicd` command automates the following:
+El comando `setup-cicd` automatiza lo siguiente:
 
-1.  **GitHub Integration:** Creates a new private GitHub repository or connects to an existing one (prompting for details if needed).
-2.  **Project ID Confirmation:** Prompts for Staging and Production project IDs if they are not provided via flags.
-3.  **Cloud Build Connection:** Sets up a Cloud Build connection to your GitHub repository.
-4.  **Terraform Setup:**
-    *   Configures Terraform to manage your CI/CD infrastructure (Cloud Build triggers, IAM permissions, etc.) and optionally, a development environment (if `--dev-project` is provided).
-    *   By default, sets up remote Terraform state management using a Google Cloud Storage (GCS) bucket in your CI/CD project (`<CICD_PROJECT_ID>-terraform-state`). Use `--local-state` to opt-out.
-5.  **Resource Deployment:** Runs `terraform apply` to create the necessary resources in Google Cloud and configure the GitHub repository connection.
-6.  **Local Git Setup:** Initializes a Git repository locally (if needed) and adds the GitHub repository as the `origin` remote.
+1.  **Integración con GitHub:** Crea un nuevo repositorio privado en GitHub o se conecta a uno existente (solicitando detalles si es necesario).
+2.  **Confirmación de IDs de Proyectos:** Solicita los IDs de los proyectos de Staging y Producción si no se proporcionan mediante flags.
+3.  **Conexión con Cloud Build:** Configura una conexión de Cloud Build con tu repositorio de GitHub.
+4.  **Configuración de Terraform:**
+    *   Configura Terraform para gestionar tu infraestructura de CI/CD (triggers de Cloud Build, permisos de IAM, etc.) y, opcionalmente, un entorno de desarrollo (si se proporciona `--dev-project`).
+    *   Por defecto, configura la gestión remota del estado de Terraform usando un bucket de Google Cloud Storage (GCS) en tu proyecto de CI/CD (`<CICD_PROJECT_ID>-terraform-state`). Usa `--local-state` para no usar esta opción.
+5.  **Despliegue de Recursos:** Ejecuta `terraform apply` para crear los recursos necesarios en Google Cloud y configurar la conexión con el repositorio de GitHub.
+6.  **Configuración Local de Git:** Inicializa un repositorio Git localmente (si es necesario) y añade el repositorio de GitHub como remoto `origin`.
 
-### Running the Command
+### Ejecución del Comando
 
 ```bash
 agent-starter-pack setup-cicd \
-    [--staging-project <YOUR_STAGING_PROJECT_ID>] \
-    [--prod-project <YOUR_PROD_PROJECT_ID>] \
-    [--cicd-project <YOUR_CICD_PROJECT_ID>] \
-    [--dev-project <YOUR_DEV_PROJECT_ID>] \
-    [--region <GCP_REGION>] \
-    [--repository-name <GITHUB_REPO_NAME>] \
-    [--repository-owner <GITHUB_USERNAME_OR_ORG>] \
+    [--staging-project <ID_DE_TU_PROYECTO_STAGING>] \
+    [--prod-project <ID_DE_TU_PROYECTO_PRODUCCION>] \
+    [--cicd-project <ID_DE_TU_PROYECTO_CICD>] \
+    [--dev-project <ID_DE_TU_PROYECTO_DESARROLLO>] \
+    [--region <REGION_GCP>] \
+    [--repository-name <NOMBRE_REPOSITORIO_GITHUB>] \
+    [--repository-owner <USUARIO_O_ORG_GITHUB>] \
     [--local-state] \
     [--auto-approve] \
     [--debug]
 ```
 
-**Key Options:**
+**Opciones Clave:**
 
-*   `--staging-project`, `--prod-project`: **Required Information.** Your Google Cloud project IDs for staging and production environments. The command will prompt for these if the flags are omitted.
-*   `--cicd-project`: (Optional) Project ID for hosting CI/CD resources (Cloud Build, Artifact Registry, Terraform state bucket). If omitted, defaults to the production project ID (provided via flag or prompt).
-*   `--dev-project`: (Optional) Project ID for a dedicated development environment managed by Terraform. If provided, Terraform will also be applied to set up resources in this development project.
-*   `--region`: (Optional) GCP region for resources (default: `us-central1`).
-*   `--repository-name`: (Optional) Name for the GitHub repository. If omitted, you'll be prompted or a name will be generated.
-*   `--repository-owner`: (Optional) Your GitHub username or organization. Defaults to the authenticated `gh` user if omitted.
-*   `--local-state`: (Optional) Use local files for Terraform state instead of the default GCS backend. Not recommended for collaboration.
-*   `--auto-approve`: (Optional) Skip interactive prompts (including project ID prompts if flags are omitted). Use carefully.
-*   `--debug`: (Optional) Enable verbose logging.
+*   `--staging-project`, `--prod-project`: **Información Obligatoria.** IDs de tus proyectos de Google Cloud para los entornos de staging y producción. El comando te pedirá estos datos si se omiten los flags.
+*   `--cicd-project`: (Opcional) ID del proyecto para alojar los recursos de CI/CD (Cloud Build, Artifact Registry, bucket de estado de Terraform). Si se omite, se usa por defecto el ID del proyecto de producción (proporcionado mediante flag o solicitud).
+*   `--dev-project`: (Opcional) ID del proyecto para un entorno de desarrollo dedicado gestionado por Terraform. Si se proporciona, Terraform también configurará recursos en este proyecto de desarrollo.
+*   `--region`: (Opcional) Región de GCP para los recursos (por defecto: `us-central1`).
+*   `--repository-name`: (Opcional) Nombre del repositorio de GitHub. Si se omite, se te pedirá o se generará un nombre.
+*   `--repository-owner`: (Opcional) Tu nombre de usuario u organización en GitHub. Por defecto, se usa el usuario autenticado en `gh` si se omite.
+*   `--local-state`: (Opcional) Usa archivos locales para el estado de Terraform en lugar del backend GCS predeterminado. No recomendado para colaboración.
+*   `--auto-approve`: (Opcional) Omitir solicitudes interactivas (incluidas las de IDs de proyectos si se omiten los flags). Úsalo con cuidado.
+*   `--debug`: (Opcional) Habilitar registro detallado.
 
-*(For advanced/programmatic use with pre-existing connections, see options like `--github-pat`, `--github-app-installation-id`, `--host-connection-name` by running `agent-starter-pack setup-cicd --help`)*
+*(Para uso avanzado/programático con conexiones preexistentes, consulta opciones como `--github-pat`, `--github-app-installation-id`, `--host-connection-name` ejecutando `agent-starter-pack setup-cicd --help`)*
 
-### After Running the Command
+### Después de Ejecutar el Comando
 
-1.  **Commit and Push:** This is crucial to trigger the pipeline.
+1.  **Commit y Push:** Esto es crucial para activar la canalización.
     ```bash
     git add .
-    git commit -m "Initial commit of agent starter pack"
+    git commit -m "Commit inicial del agent starter pack"
     git push -u origin main
     ```
-2.  **Verify:** Check your GitHub repository and Google Cloud projects (Cloud Build > Triggers, Secret Manager, IAM) to see the created resources.
+2.  **Verificar:** Revisa tu repositorio de GitHub y los proyectos de Google Cloud (Cloud Build > Triggers, Secret Manager, IAM) para ver los recursos creados.
 
-### Manual CI/CD Setup (Recommended for Production)
+### Configuración Manual de CI/CD (Recomendada para Producción)
 
-For robust, production-ready deployments with fine-grained control over security, customization, and advanced CI/CD practices, please follow the [manual setup guide](../deployment.md).
+Para despliegues robustos y listos para producción con control detallado sobre la seguridad, personalización y prácticas avanzadas de CI/CD, sigue la [guía de configuración manual](../deployment.md).

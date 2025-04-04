@@ -1,111 +1,111 @@
-# Deployment README.md
+# README.md de Despliegue
 
-This folder contains the infrastructure-as-code and CI/CD pipeline configurations for deploying a conversational Generative AI application on Google Cloud.
+Esta carpeta contiene la infraestructura como código y las configuraciones del pipeline CI/CD para desplegar una aplicación conversacional de IA Generativa en Google Cloud.
 
-The application leverages [**Terraform**](http://terraform.io) to define and provision the underlying infrastructure, while [**Cloud Build**](https://cloud.google.com/build/) orchestrates the continuous integration and continuous deployment (CI/CD) pipeline.
+La aplicación utiliza [**Terraform**](http://terraform.io) para definir y aprovisionar la infraestructura subyacente, mientras que [**Cloud Build**](https://cloud.google.com/build/) orquesta el pipeline de integración y despliegue continuo (CI/CD).
 
-## Deployment Workflow
+## Flujo de Trabajo de Despliegue
 
-![Deployment Workflow](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/deployment_workflow.png)
+![Flujo de Trabajo de Despliegue](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/deployment_workflow.png)
 
-**Description:**
+**Descripción:**
 
-1. CI Pipeline (`deployment/ci/pr_checks.yaml`):
+1. Pipeline de CI (`deployment/ci/pr_checks.yaml`):
 
-   - Triggered on pull request creation/update
-   - Runs unit and integration tests
+   - Se activa al crear/actualizar una pull request
+   - Ejecuta pruebas unitarias e integradas
 
-2. CD Pipeline (`deployment/cd/staging.yaml`):
+2. Pipeline de CD (`deployment/cd/staging.yaml`):
 
-   - Triggered on merge to `main` branch
-   - Builds and pushes application to Artifact Registry
-   - Deploys to staging environment
-   - Performs load testing
+   - Se activa al hacer merge en la rama `main`
+   - Construye y sube la aplicación al Registro de Artefactos
+   - Despliega en el entorno de staging
+   - Realiza pruebas de carga
 
-3. Production Deployment (`deployment/cd/deploy-to-prod.yaml`):
-   - Triggered after successful staging deployment
-   - Requires manual approval
-   - Deploys to production environment
+3. Despliegue en Producción (`deployment/cd/deploy-to-prod.yaml`):
+   - Se activa tras un despliegue exitoso en staging
+   - Requiere aprobación manual
+   - Despliega en el entorno de producción
 
-## Setup
+## Configuración
 
-> **Note:** For a streamlined one-command deployment of the entire CI/CD pipeline and infrastructure using Terraform, you can use the [`agent-starter-pack setup-cicd` CLI command](https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/cli/setup_cicd.md). Currently only supporting Github.
+> **Nota:** Para un despliegue simplificado de un solo comando de todo el pipeline CI/CD y la infraestructura usando Terraform, puedes usar el [comando CLI `agent-starter-pack setup-cicd`](https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/cli/setup_cicd.md). Actualmente solo soporta Github.
 
-**Prerequisites:**
+**Requisitos Previos:**
 
-1. A set of Google Cloud projects:
-   - Staging project
-   - Production project
-   - CI/CD project (can be the same as staging or production)
-2. Terraform installed on your local machine
-3. Enable required APIs in the CI/CD project. This will be required for the Terraform deployment:
+1. Un conjunto de proyectos de Google Cloud:
+   - Proyecto de staging
+   - Proyecto de producción
+   - Proyecto de CI/CD (puede ser el mismo que staging o producción)
+2. Terraform instalado en tu máquina local
+3. Habilitar las APIs requeridas en el proyecto de CI/CD. Esto será necesario para el despliegue con Terraform:
 
    ```bash
    gcloud config set project $YOUR_CI_CD_PROJECT_ID
    gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com
    ```
 
-## Step-by-Step Guide
+## Guía Paso a Paso
 
-1. **Create a Git Repository using your favorite Git provider (GitHub, GitLab, Bitbucket, etc.)**
+1. **Crea un Repositorio Git usando tu proveedor de Git favorito (GitHub, GitLab, Bitbucket, etc.)**
 
-2. **Connect Your Repository to Cloud Build**
-   For detailed instructions, visit: [Cloud Build Repository Setup](https://cloud.google.com/build/docs/repositories#whats_next).<br>
+2. **Conecta Tu Repositorio a Cloud Build**
+   Para instrucciones detalladas, visita: [Configuración del Repositorio en Cloud Build](https://cloud.google.com/build/docs/repositories#whats_next).<br>
 
    ![Alt text](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/connection_cb.gif)
 
-3. **Configure Terraform Variables**
+3. **Configura las Variables de Terraform**
 
-   - Edit [`deployment/terraform/vars/env.tfvars`](../terraform/vars/env.tfvars) with your Google Cloud settings.
+   - Edita [`deployment/terraform/vars/env.tfvars`](../terraform/vars/env.tfvars) con tus configuraciones de Google Cloud.
 
-   | Variable               | Description                                                     | Required |
-   | ---------------------- | --------------------------------------------------------------- | :------: |
-   | project_name           | Project name used as a base for resource naming                 |   Yes    |
-   | prod_project_id        | **Production** Google Cloud Project ID for resource deployment. |   Yes    |
-   | staging_project_id     | **Staging** Google Cloud Project ID for resource deployment.    |   Yes    |
-   | cicd_runner_project_id | Google Cloud Project ID where CI/CD pipelines will execute.     |   Yes    |
-   | region                 | Google Cloud region for resource deployment.                    |   Yes    |
-   | host_connection_name   | Name of the host connection you created in Cloud Build          |   Yes    |
-   | repository_name        | Name of the repository you added to Cloud Build                 |   Yes    |
+   | Variable               | Descripción                                                     | Requerido |
+   | ---------------------- | --------------------------------------------------------------- | :-------: |
+   | project_name           | Nombre del proyecto usado como base para nombrar recursos       |    Sí     |
+   | prod_project_id        | ID del Proyecto de Google Cloud **Producción** para el despliegue de recursos. |    Sí     |
+   | staging_project_id     | ID del Proyecto de Google Cloud **Staging** para el despliegue de recursos.    |    Sí     |
+   | cicd_runner_project_id | ID del Proyecto de Google Cloud donde se ejecutarán los pipelines CI/CD.     |    Sí     |
+   | region                 | Región de Google Cloud para el despliegue de recursos.                    |    Sí     |
+   | host_connection_name   | Nombre de la conexión del host que creaste en Cloud Build          |    Sí     |
+   | repository_name        | Nombre del repositorio que añadiste a Cloud Build                 |    Sí     |
 
-   Other optional variables may include: telemetry and feedback log filters, service account roles, and for projects requiring data ingestion: pipeline cron schedule, pipeline roles, and datastore-specific configurations.
+   Otras variables opcionales pueden incluir: filtros de registro de telemetría y feedback, roles de cuentas de servicio, y para proyectos que requieran ingestión de datos: cronograma del pipeline, roles del pipeline, y configuraciones específicas del almacén de datos.
 
-4. **Deploy Infrastructure with Terraform**
+4. **Despliega la Infraestructura con Terraform**
 
-   - Open a terminal and navigate to the Terraform directory:
+   - Abre una terminal y navega al directorio de Terraform:
 
    ```bash
    cd deployment/terraform
    ```
 
-   - Initialize Terraform:
+   - Inicializa Terraform:
 
    ```bash
    terraform init
    ```
 
-   - Apply the Terraform configuration:
+   - Aplica la configuración de Terraform:
 
    ```bash
    terraform apply --var-file vars/env.tfvars
    ```
 
-   - Type 'yes' when prompted to confirm
+   - Escribe 'yes' cuando se te pida confirmación
 
-After completing these steps, your infrastructure will be set up and ready for deployment!
+Después de completar estos pasos, ¡tu infraestructura estará configurada y lista para el despliegue!
 
-## Dev Deployment
+## Despliegue de Desarrollo
 
-For End-to-end testing of the application, including tracing and feedback sinking to BigQuery, without the need to trigger a CI/CD pipeline.
+Para pruebas de extremo a extremo de la aplicación, incluyendo trazabilidad y registro de feedback en BigQuery, sin necesidad de activar un pipeline CI/CD.
 
-First, enable required Google Cloud APIs:
+Primero, habilita las APIs requeridas de Google Cloud:
 
 ```bash
 gcloud config set project <your-dev-project-id>
 gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
 ```
 
-After you edited the relative [`env.tfvars` file](../terraform/dev/vars/env.tfvars), follow the following instructions:
+Después de editar el archivo [`env.tfvars` relativo](../terraform/dev/vars/env.tfvars), sigue las siguientes instrucciones:
 
 ```bash
 cd deployment/terraform/dev
@@ -113,14 +113,14 @@ terraform init
 terraform apply --var-file vars/env.tfvars
 ```
 
-Then deploy the application using the following command (from the root of the repository):
+Luego despliega la aplicación usando el siguiente comando (desde la raíz del repositorio):
 
 ```bash
 make backend
 ```
 
-### End-to-end Demo video
+### Video de Demostración de Extremo a Extremo
 
 <a href="https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/template_deployment_demo.mp4">
-  <img src="https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/preview_video.png" alt="Watch the video" width="300"/>
+  <img src="https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/preview_video.png" alt="Ver el video" width="300"/>
 </a>

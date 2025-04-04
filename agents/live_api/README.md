@@ -1,37 +1,37 @@
-# Multimodal Live Agent
+# Agente Multimodal en Tiempo Real
 
-This pattern showcases a real-time conversational RAG agent powered by Google Gemini. The agent handles audio, video, and text interactions while leveraging tool calling with a vector DB for grounded responses.
+Este patrón muestra un agente conversacional RAG en tiempo real impulsado por Google Gemini. El agente maneja interacciones de audio, vídeo y texto mientras utiliza llamadas a herramientas con una base de datos vectorial para respuestas fundamentadas.
 
 ![live_api_diagram](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/live_api_diagram.png)
 
-**Key components:**
+**Componentes clave:**
 
-- **Python Backend** (in `app/` folder): A production-ready server built with [FastAPI](https://fastapi.tiangolo.com/) and [google-genai](https://googleapis.github.io/python-genai/) that features:
+- **Backend en Python** (en la carpeta `app/`): Un servidor listo para producción construido con [FastAPI](https://fastapi.tiangolo.com/) y [google-genai](https://googleapis.github.io/python-genai/) que incluye:
 
-  - **Real-time bidirectional communication** via WebSockets between the frontend and Gemini model
-  - **Integrated tool calling** with vector database support for contextual document retrieval
-  - **Production-grade reliability** with retry logic and automatic reconnection capabilities
-  - **Deployment flexibility** supporting both AI Studio and Vertex AI endpoints
-  - **Feedback logging endpoint** for collecting user interactions
+  - **Comunicación bidireccional en tiempo real** mediante WebSockets entre el frontend y el modelo Gemini
+  - **Llamadas a herramientas integradas** con soporte para bases de datos vectoriales para la recuperación contextual de documentos
+  - **Fiabilidad a nivel de producción** con lógica de reintentos y capacidades de reconexión automática
+  - **Flexibilidad de despliegue** compatible con los endpoints de AI Studio y Vertex AI
+  - **Endpoint de registro de comentarios** para recopilar interacciones de los usuarios
 
-- **React Frontend** (in `frontend/` folder): Extends the [Multimodal live API Web Console](https://github.com/google-gemini/multimodal-live-api-web-console), with added features like **custom URLs** and **feedback collection**.
+- **Frontend en React** (en la carpeta `frontend/`): Extiende la [Consola Web de la API en Tiempo Real Multimodal](https://github.com/google-gemini/multimodal-live-api-web-console), con características adicionales como **URLs personalizadas** y **recopilación de comentarios**.
 
 ![live api demo](https://storage.googleapis.com/github-repo/generative-ai/sample-apps/e2e-gen-ai-app-starter-pack/live_api_pattern_demo.gif)
 
-Once both the backend and frontend are running, click the play button in the frontend UI to establish a connection with the backend. You can now interact with the Multimodal Live Agent! You can try asking questions such as "Using the tool you have, define Governance in the context MLOPs" to allow the agent to use the [documentation](https://cloud.google.com/architecture/deploy-operate-generative-ai-applications) it was provided to.
+Una vez que tanto el backend como el frontend estén en funcionamiento, haz clic en el botón de reproducción en la interfaz del frontend para establecer una conexión con el backend. ¡Ahora puedes interactuar con el Agente Multimodal en Tiempo Real! Puedes intentar hacer preguntas como "Usando la herramienta que tienes, define Gobernanza en el contexto de MLOPs" para que el agente utilice la [documentación](https://cloud.google.com/architecture/deploy-operate-generative-ai-applications) que se le proporcionó.
 
-## Additional Resources for Multimodal Live API
+## Recursos Adicionales para la API en Tiempo Real Multimodal
 
-Explore these resources to learn more about the Multimodal Live API and see examples of its usage:
+Explora estos recursos para aprender más sobre la API en Tiempo Real Multimodal y ver ejemplos de su uso:
 
-- [Project Pastra](https://github.com/heiko-hotz/gemini-multimodal-live-dev-guide/tree/main): a comprehensive developer guide for the Gemini Multimodal Live API.
-- [Google Cloud Multimodal Live API demos and samples](https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/multimodal-live-api): Collection of code samples and demo applications leveraging multimodal live API in Vertex AI
-- [Gemini 2 Cookbook](https://github.com/google-gemini/cookbook/tree/main/gemini-2): Practical examples and tutorials for working with Gemini 2
-- [Multimodal Live API Web Console](https://github.com/google-gemini/multimodal-live-api-web-console): Interactive React-based web interface for testing and experimenting with Gemini Multimodal Live API.
+- [Proyecto Pastra](https://github.com/heiko-hotz/gemini-multimodal-live-dev-guide/tree/main): una guía completa para desarrolladores sobre la API en Tiempo Real Multimodal de Gemini.
+- [Demos y ejemplos de la API en Tiempo Real Multimodal de Google Cloud](https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/multimodal-live-api): Colección de ejemplos de código y aplicaciones de demostración que utilizan la API en Tiempo Real Multimodal en Vertex AI.
+- [Cookbook de Gemini 2](https://github.com/google-gemini/cookbook/tree/main/gemini-2): Ejemplos prácticos y tutoriales para trabajar con Gemini 2.
+- [Consola Web de la API en Tiempo Real Multimodal](https://github.com/google-gemini/multimodal-live-api-web-console): Interfaz web interactiva basada en React para probar y experimentar con la API en Tiempo Real Multimodal de Gemini.
 
-## Current Status & Future Work
+## Estado Actual y Trabajo Futuro
 
-This pattern is under active development. Key areas planned for future enhancement include:
+Este patrón está en desarrollo activo. Las áreas clave planificadas para futuras mejoras incluyen:
 
-*   **Observability:** Implementing comprehensive monitoring and tracing features.
-*   **Load Testing:** Integrating load testing capabilities.
+*   **Observabilidad:** Implementación de características completas de monitoreo y trazabilidad.
+*   **Pruebas de Carga:** Integración de capacidades de pruebas de carga.

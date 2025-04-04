@@ -1,72 +1,71 @@
-# Installation
+# Instalación
 
-There are several ways to install the Agent Starter Pack. Choose the method that works best for your workflow.
+Existen varias formas de instalar el Agent Starter Pack. Elige el método que mejor se adapte a tu flujo de trabajo.
 
-## Using pipx (Recommended)
+## Usando pipx (Recomendado)
 
-The recommended way to install the Agent Starter Pack is with [pipx](https://pypa.github.io/pipx/), which installs the package in an isolated environment while making the commands globally available:
+La forma recomendada de instalar el Agent Starter Pack es con [pipx](https://pypa.github.io/pipx/), que instala el paquete en un entorno aislado mientras hace que los comandos estén disponibles globalmente:
 
 ```bash
-# Install pipx if you don't have it
+# Instala pipx si no lo tienes
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
-source ~/.bashrc  # or ~/.zshrc depending on your shell
+source ~/.bashrc  # o ~/.zshrc dependiendo de tu shell
 
-# Install the Agent Starter Pack
+# Instala el Agent Starter Pack
 pipx install agent-starter-pack
 ```
 
-## Using pip with a virtual environment
+## Usando pip con un entorno virtual
 
-You can also install the Agent Starter Pack in a virtual environment:
+También puedes instalar el Agent Starter Pack en un entorno virtual:
 
 ```bash
-# Create and activate a Python virtual environment
+# Crea y activa un entorno virtual de Python
 python -m venv venv && source venv/bin/activate
 
-# Install the Agent Starter Pack
+# Instala el Agent Starter Pack
 pip install agent-starter-pack
 ```
 
-## Using uv (Fast Python package installer)
+## Usando uv (Instalador rápido de paquetes Python)
 
-For a faster installation experience, you can use [uv](https://astral.sh/uv):
+Para una experiencia de instalación más rápida, puedes usar [uv](https://astral.sh/uv):
 
 ```bash
-# Install uv if you don't have it
+# Instala uv si no lo tienes
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-source ~/.bashrc  # or ~/.zshrc depending on your shell
+source ~/.bashrc  # o ~/.zshrc dependiendo de tu shell
 
-# Install the Agent Starter Pack
+# Instala el Agent Starter Pack
 uv pip install agent-starter-pack
 ```
 
-## Getting Started
+## Primeros Pasos
 
-After installation, you can create a new agent project:
+Después de la instalación, puedes crear un nuevo proyecto de agente:
 
 ```bash
-# Create a new agent project
+# Crea un nuevo proyecto de agente
 agent-starter-pack create my-awesome-agent
 ```
 
+## Actualización
 
-## Upgrading
-
-To upgrade, use the same tool you used for installation:
+Para actualizar, usa la misma herramienta que utilizaste para la instalación:
 
 ```bash
-pipx upgrade agent-starter-pack  # Using pipx
-pip install --upgrade agent-starter-pack  # Using pip
-uv pip install --upgrade agent-starter-pack  # Using uv
+pipx upgrade agent-starter-pack  # Usando pipx
+pip install --upgrade agent-starter-pack  # Usando pip
+uv pip install --upgrade agent-starter-pack  # Usando uv
 ```
 
-## Uninstalling
+## Desinstalación
 
-To uninstall, use the same tool you used for installation:
+Para desinstalar, usa la misma herramienta que utilizaste para la instalación:
 
 ```bash
-pipx uninstall agent-starter-pack # Using pipx
-pip uninstall agent-starter-pack  # Using pip
-uv pip uninstall agent-starter-pack  # Using uv
+pipx uninstall agent-starter-pack # Usando pipx
+pip uninstall agent-starter-pack  # Usando pip
+uv pip uninstall agent-starter-pack  # Usando uv
 ```

@@ -1,45 +1,45 @@
 # `create`
 
-The Agent Starter Pack provides CLI commands to help you create and manage AI agent projects.
+El Agent Starter Pack proporciona comandos CLI para ayudarte a crear y gestionar proyectos de agentes de IA.
 
-## Create Command
+## Comando Create
 
-The `create` command helps you create new GCP-based AI agent projects from templates.
+El comando `create` te ayuda a crear nuevos proyectos de agentes de IA basados en GCP a partir de plantillas.
 
 ```bash
-agent-starter-pack create PROJECT_NAME [OPTIONS]
+agent-starter-pack create NOMBRE_DEL_PROYECTO [OPCIONES]
 ```
 
-### Arguments
+### Argumentos
 
-- `PROJECT_NAME`: Name of the project to create (must be 26 characters or less, will be converted to lowercase).
+- `NOMBRE_DEL_PROYECTO`: Nombre del proyecto a crear (debe tener 26 caracteres o menos, se convertirá a minúsculas).
 
-### Options
+### Opciones
 
-The following options will be prompted interactively if not provided via the command line:
-- `--agent`, `-a`: Agent name or number to use. Lists available agents if omitted.
-- `--deployment-target`, `-d`: Deployment target (`agent_engine` or `cloud_run`). Prompts if omitted.
-- `--datastore`, `-ds`: Type of datastore to use (`vertex_ai_search`, `vertex_ai_vector_search`). Prompted if `--include-data-ingestion` is specified or if the selected agent requires data ingestion, and this option is omitted.
-- `--region`: GCP region for deployment. Defaults to `us-central1`. Prompts for confirmation if not specified and `--auto-approve` is not used.
+Las siguientes opciones se solicitarán de forma interactiva si no se proporcionan en la línea de comandos:
+- `--agent`, `-a`: Nombre o número del agente a usar. Muestra los agentes disponibles si se omite.
+- `--deployment-target`, `-d`: Destino de despliegue (`agent_engine` o `cloud_run`). Se solicita si se omite.
+- `--datastore`, `-ds`: Tipo de almacén de datos a usar (`vertex_ai_search`, `vertex_ai_vector_search`). Se solicita si se especifica `--include-data-ingestion` o si el agente seleccionado requiere la ingesta de datos y esta opción se omite.
+- `--region`: Región de GCP para el despliegue. Por defecto es `us-central1`. Se solicita confirmación si no se especifica y no se usa `--auto-approve`.
 
-GCP account and project ID are detected automatically. You will be prompted to confirm or change them unless `--auto-approve` is used.
+La cuenta de GCP y el ID del proyecto se detectan automáticamente. Se te pedirá confirmarlos o cambiarlos a menos que uses `--auto-approve`.
 
-Additional options:
-- `--include-data-ingestion`, `-i`: Include data ingestion pipeline components in the project. If specified without `--datastore`, you will be prompted to select a datastore. Some agents require data ingestion and will enable this automatically.
-- `--debug`: Enable debug logging.
-- `--output-dir`, `-o`: Output directory for the project (default: current directory).
-- `--auto-approve`: Skip interactive confirmation prompts for GCP credentials and region.
-- `--skip-checks`: Skip verification checks for `uv` installation, GCP authentication, and Vertex AI connection.
+Opciones adicionales:
+- `--include-data-ingestion`, `-i`: Incluir componentes de la canalización de ingesta de datos en el proyecto. Si se especifica sin `--datastore`, se te pedirá seleccionar un almacén de datos. Algunos agentes requieren ingesta de datos y habilitarán esta opción automáticamente.
+- `--debug`: Habilitar el registro de depuración.
+- `--output-dir`, `-o`: Directorio de salida para el proyecto (por defecto: directorio actual).
+- `--auto-approve`: Omitir las solicitudes de confirmación interactivas para las credenciales de GCP y la región.
+- `--skip-checks`: Omitir las verificaciones de instalación de `uv`, autenticación de GCP y conexión a Vertex AI.
 
-### Example Usage
+### Ejemplo de Uso
 
 ```bash
-# Create a new project interactively
-agent-starter-pack create my-agent-project
+# Crear un nuevo proyecto de forma interactiva
+agent-starter-pack create mi-proyecto-agente
 
-# Create with specific agent, deployment target, region, and include data ingestion with Vertex AI Search
-agent-starter-pack create my-agent-project -a agentic_rag -d cloud_run --region europe-west1 -i -ds vertex_ai_search
+# Crear con un agente específico, destino de despliegue, región e incluir ingesta de datos con Vertex AI Search
+agent-starter-pack create mi-proyecto-agente -a agentic_rag -d cloud_run --region europe-west1 -i -ds vertex_ai_search
 
-# Create without interactive prompts (uses detected GCP credentials)
-agent-starter-pack create my-other-agent -a chat_agent -d agent_engine --auto-approve
+# Crear sin solicitudes interactivas (usa las credenciales de GCP detectadas)
+agent-starter-pack create mi-otro-agente -a chat_agent -d agent_engine --auto-approve
 ```

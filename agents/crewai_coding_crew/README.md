@@ -1,34 +1,34 @@
-# CrewAI Coding Crew Agent
+# Agente CrewAI Coding Crew
 
-This agent combines CrewAI's collaborative AI capabilities with LangGraph to provide an interactive coding assistant that can understand requirements and generate code solutions through conversation.
+Este agente combina las capacidades de IA colaborativa de CrewAI con LangGraph para proporcionar un asistente de codificación interactivo que puede entender requisitos y generar soluciones de código a través de la conversación.
 
-## Architecture
+## Arquitectura
 
-The agent implements a conversational interface using LangGraph that coordinates with a CrewAI development team. The workflow consists of:
+El agente implementa una interfaz conversacional utilizando LangGraph que coordina con un equipo de desarrollo CrewAI. El flujo de trabajo consiste en:
 
-1. A conversational agent that:
-   - Gathers requirements through natural dialogue
-   - Clarifies ambiguities by asking follow-up questions
-   - Delegates actual coding work to the CrewAI development team
+1. Un agente conversacional que:
+   - Recoge requisitos a través de un diálogo natural
+   - Aclara ambigüedades haciendo preguntas de seguimiento
+   - Delega el trabajo de codificación real al equipo de desarrollo CrewAI
 
-2. A CrewAI development team consisting of:
-   - Senior Engineer: Responsible for implementing the code solution
-   - Chief QA Engineer: Evaluates and validates the implemented code
+2. Un equipo de desarrollo CrewAI compuesto por:
+   - Ingeniero Senior: Responsable de implementar la solución de código
+   - Ingeniero Jefe de QA: Evalúa y valida el código implementado
 
-## Key Features
+## Características Clave
 
-- **Interactive Requirements Gathering**: Uses LangGraph to maintain a natural conversation flow while collecting and clarifying coding requirements
-- **Collaborative AI Development**: Leverages CrewAI's multi-agent system to divide work between specialized AI agents
-- **Sequential Processing**: Tasks are processed in order, from requirements gathering to implementation to quality assurance
+- **Recopilación Interactiva de Requisitos**: Utiliza LangGraph para mantener un flujo de conversación natural mientras recopila y aclara los requisitos de codificación.
+- **Desarrollo Colaborativo de IA**: Aprovecha el sistema multiagente de CrewAI para dividir el trabajo entre agentes de IA especializados.
+- **Procesamiento Secuencial**: Las tareas se procesan en orden, desde la recopilación de requisitos hasta la implementación y la garantía de calidad.
 
-## How It Works
+## Cómo Funciona
 
-1. The LangGraph workflow manages the conversation state and determines when to:
-   - Continue the conversation to gather more requirements
-   - Delegate work to the CrewAI development team
-   - Return results to the user
+1. El flujo de trabajo de LangGraph gestiona el estado de la conversación y determina cuándo:
+   - Continuar la conversación para recopilar más requisitos
+   - Delegar el trabajo al equipo de desarrollo CrewAI
+   - Devolver los resultados al usuario
 
-2. When coding is needed, the CrewAI team is activated through a custom tool that:
-   - Passes requirements to the Senior Engineer agent
-   - Routes the implementation to the QA Engineer for validation
-   - Returns the final, validated solution
+2. Cuando se necesita codificación, el equipo CrewAI se activa a través de una herramienta personalizada que:
+   - Pasa los requisitos al agente Ingeniero Senior
+   - Envía la implementación al Ingeniero de QA para su validación
+   - Devuelve la solución final validada

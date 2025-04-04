@@ -1,10 +1,10 @@
-# CLI Reference
+# Referencia CLI
 
-This document provides an overview of the available CLI commands for managing your generative AI applications.
+Este documento proporciona una visión general de los comandos CLI disponibles para gestionar tus aplicaciones de IA generativa.
 
-## Available Commands
+## Comandos Disponibles
 
-- [`create`](create.md) - Create a new generative AI application project
-- [`setup-cicd`](setup_cicd.md) - Set up CI/CD pipeline for your project
+- [`create`](create.md) - Crear un nuevo proyecto de aplicación de IA generativa
+- [`setup-cicd`](setup_cicd.md) - Configurar la canalización de CI/CD para tu proyecto
 
-For detailed usage instructions, click on the command links above.
+Para instrucciones detalladas de uso, haz clic en los enlaces de los comandos anteriores.

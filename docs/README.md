@@ -1,25 +1,25 @@
-# Agent Starter Pack Documentation
+# Documentación del Agent Starter Pack
 
-## Overview
+## Descripción General
 
-- [Why Use the Starter Pack?](why_starter_pack.md)
-- [Available Agents](../agents/)
+- [¿Por qué usar el Starter Pack?](why_starter_pack.md)
+- [Agentes Disponibles](../agents/)
   - [`langgraph_base_react`](../agents/langgraph_base_react/README.md)
   - [`agentic_rag_vertexai_search`](../agents/agentic_rag_vertexai_search/README.md)
   - [`crewai_coding_crew`](../agents/crewai_coding_crew/README.md)
   - [`live_api`](../agents/live_api/README.md)
 
-## Features
+## Funcionalidades
 
-- [Deployment Options](deployment.md)
-- [Data Ingestion Pipeline](data-ingestion.md)
-- [Observability & Monitoring](observability.md)
+- [Opciones de Despliegue](deployment.md)
+- [Pipeline de Ingesta de Datos](data-ingestion.md)
+- [Observabilidad y Monitoreo](observability.md)
 
-## CLI Reference
+## Referencia CLI
 
-- [Create Command](cli/create.md)
-- [Setup CI/CD](cli/setup_cicd.md)
+- [Comando Create](cli/create.md)
+- [Configurar CI/CD](cli/setup_cicd.md)
 
-## Contributing
+## Contribuir
 
-- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Guía de Contribución](../CONTRIBUTING.md)
